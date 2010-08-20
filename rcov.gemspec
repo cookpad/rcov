@@ -1,3 +1,4 @@
+unless defined?(PKG_FILES)
 PKG_FILES = ["bin/rcov", "lib/rcov.rb", "lib/rcov/lowlevel.rb", "lib/rcov/version.rb", 
              "lib/rcov/rcovtask.rb", "lib/rcov/formatters.rb", "lib/rcov/call_site_analyzer.rb",
              "lib/rcov/code_coverage_analyzer.rb", "lib/rcov/coverage_info.rb", "lib/rcov/differential_analyzer.rb",
@@ -26,6 +27,7 @@ PKG_FILES = ["bin/rcov", "lib/rcov.rb", "lib/rcov/lowlevel.rb", "lib/rcov/versio
              "test/expected_coverage/diff-no-color.out", "test/expected_coverage/diff.out", "test/expected_coverage/gcc-text.out", 
              "test/expected_coverage/sample_03_rb.html", "test/expected_coverage/sample_03_rb.rb", "test/expected_coverage/sample_04_rb.html", 
              "editor-extensions/rcov.el", "setup.rb", "BLURB"]
+end
 
 Gem::Specification.new do |s|
   s.name = %q{rcov}
