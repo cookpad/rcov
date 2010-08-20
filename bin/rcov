@@ -50,8 +50,18 @@ else
   extra_args = []
 end
 
+def save_options(options)
+  dmp = Marshal.dump(options)
+  num = ENV["TEST_ENV_NUMBER"]
+  num = 1 if ["", nil].include?(num)
+  File.open(File.join(options.destdir, "options.#{num}"), "w") do |f|
+    f.write(dmp)
+  end
+end
+
 begin
   options = Rcov::Options.parse!(ARGV)
+  save_options(options) if options.dump
 rescue OptionParser::InvalidOption, OptionParser::InvalidArgument, OptionParser::MissingArgument => e
   puts opts
   puts
@@ -113,17 +123,20 @@ end
 
 $rcov_code_coverage_analyzer ||= Rcov::CodeCoverageAnalyzer.new
 
-formatters = Rcov::Formatters::Generator.formatters(options)
 # must be registered before test/unit puts its own
 
 # The exception to rethrow after reporting has been handled.
 $__rcov_exit_exception = nil
 
+formatters = Rcov::Formatters::Generator.formatters(options)
 END {
     $rcov_code_coverage_analyzer.remove_hook
     $rcov_callsite_analyzer.remove_hook if $rcov_callsite_analyzer
     rcov_save_aggregate_data(options.aggregate_file) if options.aggregate_file
-    $rcov_code_coverage_analyzer.dump_coverage_info(formatters)
+    $rcov_code_coverage_analyzer.add_files(formatters)
+    $rcov_code_coverage_analyzer.dump_coverage_info(formatters) unless options.skip_execute
+    $rcov_code_coverage_analyzer.save_files(formatters) if options.dump
+
     if options.report_cov_bug_for
         defsite = $rcov_callsite_analyzer.defsite(options.report_cov_bug_for)
         if !defsite

@@ -131,14 +131,10 @@ module Rcov
     def reset; super end
 
     def dump_coverage_info(formatters) # :nodoc:
-      add_files(formatters)
-      save_files(formatters)
       formatters.each{|formatter| formatter.execute}
     end
 
-    private
-
-    def add_file(formatters)
+    def add_files(formatters)
       update_script_lines__
       raw_data_relative.each do |file, lines|
         next if @script_lines__.has_key?(file) == false
@@ -156,13 +152,15 @@ module Rcov
     def save_files(formatters)
       files = formatters.first.instance_variable_get("@files")
       dump = Marshal.dump(files)
-      num = ENV["TEST_ENV_NUMBER"].blank?
-      num = 1 if num.empty?
-      File.open(File.join(Rails.root, "coverage", "files.#{num}"), "w") do |f|
-        f.write(files_dmp)
+      num = ENV["TEST_ENV_NUMBER"]
+      num = 1 if [nil, ""].include?(num)
+      dir = formatters.first.instance_variable_get("@dest")
+      File.open(File.join(dir, "files.#{num}"), "w") do |f|
+        f.write(dump)
       end
     end
 
+    private
     def data_default; {} end
 
     def raw_data_absolute

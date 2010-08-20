@@ -7,6 +7,7 @@ module Rcov
 
       options.callsites = true if options.report_cov_bug_for
       options.textmode = :gcc if !options.textmode and options.gcc_output
+      options
     end
 
     def self.default_options
@@ -40,6 +41,8 @@ module Rcov
       options.gcc_output = false
       options.charset = nil
       options.destdir = "coverage"
+      options.skip_execute = false
+      options.dump = false
       return options
     end
 
@@ -238,6 +241,14 @@ EOF
               "(default: diff)") do |cmd|
         options.diff_cmd = cmd
               end
+
+      opts.on("--skip-execute", "Skip format execute") do
+        options.skip_execute = true
+      end
+
+      opts.on("--dump", "save result dump") do
+        options.dump = true
+      end
 
       opts.separator ""
 

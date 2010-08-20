@@ -3,38 +3,38 @@ module Rcov
     class Generator
       def self.formatters(options)
         formatters = []
-        make = make_formatter
+        make = make_formatter(options)
         if options.html
           if options.profiling
-            formatters << make_formatter[Rcov::HTMLProfiling]
+            formatters << make[Rcov::HTMLProfiling]
           else
-            formatters << make_formatter[Rcov::HTMLCoverage]
+            formatters << make[Rcov::HTMLCoverage]
           end
         end
 
 
         if textual_formatters[options.textmode]
-          formatters << make_formatter[textual_formatters[options.textmode]]
+          formatters << make[textual_formatters[options.textmode]]
         end
 
 
         if options.failure_threshold.nil? == false && options.textmode != :failure_report
-          formatters << make_formatter[textual_formatters[:failure_report]]
+          formatters << make[textual_formatters[:failure_report]]
         end
 
-        formatters << make_formatter[Rcov::TextCoverageDiff] if options.coverage_diff_save
-
+        formatters << make[Rcov::TextCoverageDiff] if options.coverage_diff_save
+        formatters
       end
 
-      def self.text_formatters
-        textual_formatters = { :counts => Rcov::FullTextReport, :coverage => Rcov::FullTextReport,
+      def self.textual_formatters
+        { :counts => Rcov::FullTextReport, :coverage => Rcov::FullTextReport,
           :gcc => Rcov::FullTextReport, :annotate => Rcov::RubyAnnotation,
           :summary => Rcov::TextSummary, :report => Rcov::TextReport,
           :coverage_diff => Rcov::TextCoverageDiff, :failure_report => Rcov::FailureReport }
 
       end
 
-      def self.make_formatter
+      def self.make_formatter(options)
         lambda do |klass| 
           klass.new(:destdir => options.destdir, :color => options.color, 
                     :fsr => options.range, :textmode => options.textmode,
