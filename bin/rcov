@@ -63,14 +63,14 @@ begin
   options = Rcov::Options.parse!(ARGV)
   save_options(options) if options.dump
 rescue OptionParser::InvalidOption, OptionParser::InvalidArgument, OptionParser::MissingArgument => e
-  puts opts
+  puts options
   puts
   puts e.message
   exit(-1)
 end
 
 unless ARGV[0] or options.aggregate_file && File.file?(options.aggregate_file)
-  puts opts
+  puts options
   exit
 end
 
