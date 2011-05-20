@@ -54,6 +54,7 @@ def save_options(options)
   dmp = Marshal.dump(options)
   num = ENV["TEST_ENV_NUMBER"]
   num = 1 if ["", nil].include?(num)
+  FileUtils.mkdir_p(options.destdir)
   File.open(File.join(options.destdir, "options.#{num}"), "w") do |f|
     f.write(dmp)
   end
