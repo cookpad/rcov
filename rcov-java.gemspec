@@ -1,31 +1,33 @@
-PKG_FILES = ["bin/rcov", "lib/rcov.rb", "lib/rcov/lowlevel.rb", "lib/rcov/version.rb", 
-             "lib/rcov/rcovtask.rb", "lib/rcov/formatters.rb", "lib/rcov/call_site_analyzer.rb",
-             "lib/rcov/code_coverage_analyzer.rb", "lib/rcov/coverage_info.rb", "lib/rcov/differential_analyzer.rb",
-             "lib/rcov/file_statistics.rb",
-             "lib/rcov/formatters/base_formatter.rb", "lib/rcov/formatters/full_text_report.rb",
-             "lib/rcov/formatters/html_erb_template.rb",
-             "lib/rcov/formatters/html_coverage.rb", "lib/rcov/formatters/text_coverage_diff.rb",
-             "lib/rcov/formatters/text_report.rb", "lib/rcov/formatters/text_summary.rb",
-             "lib/rcov/formatters/failure_report.rb",
-             "lib/rcov/templates/index.html.erb", "lib/rcov/templates/detail.html.erb",
-             "lib/rcov/templates/screen.css",
-             "lib/rcov/templates/print.css",
-             "lib/rcov/templates/rcov.js",
-             "lib/rcov/templates/jquery-1.3.2.min.js",
-             "lib/rcov/templates/jquery.tablesorter.min.js", "LICENSE", 
-             "ext/java/src/CallsiteHook.java","ext/java/src/CoverageHook.java","ext/java/src/RcovHook.java","ext/java/src/RcovrtService.java",
-             "Rakefile", "doc/readme_for_rake.markdown", "doc/readme_for_vim.markdown", "doc/readme_for_emacs.markdown", 
-             "doc/readme_for_api.markdown", "THANKS", "test/functional_test.rb", 
-             "test/file_statistics_test.rb", "test/assets/sample_03.rb", "test/assets/sample_05-new.rb", 
-             "test/code_coverage_analyzer_test.rb", "test/assets/sample_04.rb", "test/assets/sample_02.rb", 
-             "test/assets/sample_05-old.rb", "test/assets/sample_01.rb", "test/turn_off_rcovrt.rb", 
-             "test/call_site_analyzer_test.rb", "test/assets/sample_05.rb", "test/assets/sample_06.rb", "editor-extensions/rcov.vim", 
-             "test/test_helper.rb", 
-             "test/expected_coverage/diff-gcc-all.out", "test/expected_coverage/diff-gcc-diff.out", "test/expected_coverage/diff-gcc-original.out", 
-             "test/expected_coverage/diff-no-color.out", "test/expected_coverage/diff.out", "test/expected_coverage/gcc-text.out", 
-             "test/expected_coverage/sample_03_rb.html", "test/expected_coverage/sample_03_rb.rb", "test/expected_coverage/sample_04_rb.html", 
-             "test/expected_coverage/sample_04_rb.rb", 
-             "editor-extensions/rcov.el", "setup.rb", "BLURB", "lib/rcovrt.jar"]
+module RcovJava
+  PKG_FILES = ["bin/rcov", "lib/rcov.rb", "lib/rcov/lowlevel.rb", "lib/rcov/version.rb",
+               "lib/rcov/rcovtask.rb", "lib/rcov/formatters.rb", "lib/rcov/call_site_analyzer.rb",
+               "lib/rcov/code_coverage_analyzer.rb", "lib/rcov/coverage_info.rb", "lib/rcov/differential_analyzer.rb",
+               "lib/rcov/file_statistics.rb",
+               "lib/rcov/formatters/base_formatter.rb", "lib/rcov/formatters/full_text_report.rb",
+               "lib/rcov/formatters/html_erb_template.rb",
+               "lib/rcov/formatters/html_coverage.rb", "lib/rcov/formatters/text_coverage_diff.rb",
+               "lib/rcov/formatters/text_report.rb", "lib/rcov/formatters/text_summary.rb",
+               "lib/rcov/formatters/failure_report.rb",
+               "lib/rcov/templates/index.html.erb", "lib/rcov/templates/detail.html.erb",
+               "lib/rcov/templates/screen.css",
+               "lib/rcov/templates/print.css",
+               "lib/rcov/templates/rcov.js",
+               "lib/rcov/templates/jquery-1.3.2.min.js",
+               "lib/rcov/templates/jquery.tablesorter.min.js", "LICENSE",
+               "ext/java/src/CallsiteHook.java","ext/java/src/CoverageHook.java","ext/java/src/RcovHook.java","ext/java/src/RcovrtService.java",
+               "Rakefile", "doc/readme_for_rake.markdown", "doc/readme_for_vim.markdown", "doc/readme_for_emacs.markdown",
+               "doc/readme_for_api.markdown", "THANKS", "test/functional_test.rb",
+               "test/file_statistics_test.rb", "test/assets/sample_03.rb", "test/assets/sample_05-new.rb",
+               "test/code_coverage_analyzer_test.rb", "test/assets/sample_04.rb", "test/assets/sample_02.rb",
+               "test/assets/sample_05-old.rb", "test/assets/sample_01.rb", "test/turn_off_rcovrt.rb",
+               "test/call_site_analyzer_test.rb", "test/assets/sample_05.rb", "test/assets/sample_06.rb", "editor-extensions/rcov.vim",
+               "test/test_helper.rb",
+               "test/expected_coverage/diff-gcc-all.out", "test/expected_coverage/diff-gcc-diff.out", "test/expected_coverage/diff-gcc-original.out",
+               "test/expected_coverage/diff-no-color.out", "test/expected_coverage/diff.out", "test/expected_coverage/gcc-text.out",
+               "test/expected_coverage/sample_03_rb.html", "test/expected_coverage/sample_03_rb.rb", "test/expected_coverage/sample_04_rb.html",
+               "test/expected_coverage/sample_04_rb.rb",
+               "editor-extensions/rcov.el", "setup.rb", "BLURB", "lib/rcovrt.jar"]
+end
 
 Gem::Specification.new do |s|
   s.name = %q{rcov}
@@ -39,7 +41,7 @@ Gem::Specification.new do |s|
   s.description = %q{rcov is a code coverage tool for Ruby. It is commonly used for viewing overall test unit coverage of target code.  It features fast execution (20-300 times faster than previous tools), multiple analysis modes, XHTML and several kinds of text reports, easy automation with Rake via a RcovTask, fairly accurate coverage information through code linkage inference using simple heuristics, colorblind-friendliness...}
   s.email = %q{opensource@thinkrelevance.com}
   s.executables = ["rcov"]
-  s.files = PKG_FILES
+  s.files = RcovJava::PKG_FILES
   s.platform = %q{java}
   s.has_rdoc = true
   s.homepage = %q{http://github.com/relevance/rcov}
